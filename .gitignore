@@ -1,0 +1,31 @@
+# -------------------------------------------------------------------
+# 1. Configuración del Entorno y Sistema
+# -------------------------------------------------------------------
+
+# Archivos de macOS
+.DS_Store
+
+# Archivos de Windows
+Thumbs.db
+Desktop.ini
+
+# Archivos de IDEs/Editores Comunes (VS Code, Sublime Text, etc.)
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# -------------------------------------------------------------------
+# 2. Archivos de Bases de Datos y MySQL Workbench
+# -------------------------------------------------------------------
+
+# Archivos de MySQL Workbench (Contienen binarios del diagrama)
+*.mwb             
+*.mwb.bak
+*.mwb.local
+
+# Archivos de logs y temporales de MySQL
+*.log
+*.err
+*.pid
+data/
+tmp/
