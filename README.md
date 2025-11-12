@@ -27,15 +27,15 @@ El modelo se basa en **6 Tablas** para demostrar la gestión de la información 
 
 ## Diccionario de Datos (Resumen de Restricciones)
 
-Este resumen demuestra la **Integridad de Dominio** implementada en el $\text{DDL}$:
+Este resumen demuestra la **Integridad de Dominio** implementada en el $\text{DDL}$ (Lenguaje de Definición de Datos):
 
 | Atributo | Tipo Dato | Restricciones Clave |
 | :--- | :--- | :--- |
-| **id\_elemento** | $\text{INT}$ | $\text{PRIMARY KEY}$, $\text{NOT NULL}$, $\text{AUTO\_INCREMENT}$ |
-| **peso\_atomico\_elemento** | $\text{DECIMAL}(8, 4)$ | $\text{NOT NULL}$, $\text{CHECK} (\text{> 0})$ |
-| **grupo\_elemento** | $\text{INT}$ | $\text{NULL}$, $\text{CHECK} (\text{1-18})$ |
-| **peso\_molecular\_compuesto** | $\text{DECIMAL}(10, 4)$ | $\text{NOT NULL}$, $\text{CHECK} (\text{> 0})$ |
-| **fecha\_registro\_compuesto** | $\text{DATETIME}$ | $\text{NOT NULL}$, $\text{CHECK} (\text{<= NOW()})$ |
+| **id\_elemento** | $\text{INT}$ | **`PRIMARY KEY`**, `NOT NULL`, `AUTO_INCREMENT` |
+| **peso\_atomico\_elemento** | $\text{DECIMAL}(8, 4)$ | `NOT NULL`, `CHECK (> 0)` |
+| **grupo\_elemento** | $\text{INT}$ | `NULL`, `CHECK (1-18)` |
+| **peso\_molecular\_compuesto** | $\text{DECIMAL}(10, 4)$ | `NOT NULL`, `CHECK (> 0)` |
+| **fecha\_registro\_compuesto** | $\text{DATETIME}$ | `NOT NULL`, `CHECK (<= NOW())` |
 
 -----
 
