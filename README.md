@@ -5,7 +5,7 @@
 
 Este proyecto representa la **Fase 3** del proceso formativo, siendo la **continuación lógica y complementaria** de la calculadora avanzada de peso molecular desarrollada en la Fase 2 (Python/POO).
 
-El objetivo de esta fase es migrar la persistencia a un diseño robusto de **Base de Datos Relacional** en MySQL, demostrando el dominio del **Modelado Entidad-Relación (ERD)** y la **Integridad Referencial** a través de **todos los tipos de relaciones (1:1, 1:M, M:M)**.
+El objetivo de esta fase es migrar la persistencia a un diseño robusto de **Base de Datos Relacional** en MySQL, demostrando el dominio del **Modelado Entidad-Relación (ERD)** y la **Integridad Referencial** a través de **todos los tipos de relaciones (1:1, 1:N, M:N)**.
 
 -----
 
@@ -17,13 +17,13 @@ El modelo se basa en **8 Tablas** para modelar la complejidad de la formulación
 
 | Tabla | Tipo | Propósito Principal | Relación Clave Demostrada |
 | :--- | :--- | :--- | :--- |
-| **elementos\_quimicos** | Padre | Catálogo de la Tabla Periódica. | Padre en **1:1** (a Detalles) y **M:M** |
+| **elementos\_quimicos** | Padre | Catálogo de la Tabla Periódica. | Padre en **1:1** (a Detalles) y **1:N** |
 | **detalles\_elementos** | Detalle | Almacena propiedades secundarias (Electronegatividad, Periodo). | **Relación 1:1** (Demuestra detalle y unicidad) |
-| **compuestos\_quimicos** | Padre | Fórmulas, Nombres y Pesos Moleculares. | Padre en **M:M** |
-| **industrias** | Padre | Clasificación de alto nivel de los usos (Ej: Farmacéutica). | Padre en **1:M** |
-| **aplicaciones** | Intermedia | Usos concretos (Ej: Fungicida). | Hija en **1:M** y Padre en **M:M** |
-| **elementos\_compuestos** | Intermedia | **Fórmula Química** (M:M). | **Relación M:M** (Fórmula) |
-| **compuestos\_aplicaciones**| Intermedia | **Uso de Moléculas** (M:M). | **Relación M:M** (Uso) |
+| **compuestos\_quimicos** | Padre | Fórmulas, Nombres y Pesos Moleculares. | Padre en **M:N** |
+| **industrias** | Padre | Clasificación de alto nivel de los usos (Ej: Farmacéutica). | Padre en **1:N** |
+| **aplicaciones** | Intermedia | Usos concretos (Ej: Fungicida). | Hija en **1:N** y Padre en **M:N** |
+| **elementos\_compuestos** | Intermedia | **Fórmula Química** (**M:N**). | **Relación M:N** (Fórmula) |
+| **compuestos\_aplicaciones**| Intermedia | **Uso de Moléculas** (**M:N**). | **Relación M:N** (Uso) |
 
 -----
 
@@ -35,8 +35,8 @@ Este resumen demuestra la **Integridad de Dominio** implementada en el DDL:
 | :--- | :--- | :--- |
 | **Id\_Elemento** | INT | **PK** (en `elementos`), **PK + UNIQUE** (en `detalles_elementos`) |
 | **peso\_atomico\_elemento** | DECIMAL(10, 6) | `NOT NULL`, `CHECK (> 0)`, **UNIQUE** |
-| **Id\_industria** | INT | **FK** a `Industrias` (Implementa la relación **1:M**). |
-| **uk\_elem\_comp** | (ID\_elemento, ID\_compuesto) | **UNIQUE KEY** (Garantiza la integridad de la fórmula **M:M**). |
+| **Id\_industria** | INT | **FK** a `Industrias` (Implementa la relación **1:N**). |
+| **uk\_elem\_comp** | (ID\_elemento, ID\_compuesto) | **UNIQUE KEY** (Garantiza la integridad de la fórmula **M:N**). |
 
 -----
 
@@ -52,9 +52,9 @@ El script SQL demuestra la implementación de estructuras relacionales utilizand
 
 El script SQL cumple con la obtención de información compleja.
 
-  * **Consultas JOIN Complejas:** Demostración de **JOINs** de 4 tablas para navegar por la estructura **1:M** y **M:M** simultáneamente.
+  * **Consultas JOIN Complejas:** Demostración de **JOINs** de 4 tablas para navegar por la estructura **1:N** y **M:N** simultáneamente.
   * **Cálculos Avanzados:** Uso de **SUM** (`peso * cantidad`) y **HAVING** para el análisis químico.
-  * **Integridad DML:** Uso de **DELETE JOIN** para eliminar relaciones **M:M** de forma controlada.
+  * **Integridad DML:** Uso de **DELETE JOIN** para eliminar relaciones **M:N** de forma controlada.
 
 -----
 

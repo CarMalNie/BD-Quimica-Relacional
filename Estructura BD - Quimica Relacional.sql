@@ -37,6 +37,10 @@ CREATE TABLE compuestos_quimicos (
     fecha_registro_compuesto DATETIME NOT NULL
 ) ENGINE = InnoDB;
 
+-- =================== --
+-- TABLAS DEPENDIENTES --
+-- =================== --
+
 -- (4) Creación Estructura Tabla aplicaciones (relación muchos a uno [aplicaciones(M) : industrias(1)]).
 CREATE TABLE aplicaciones (
 	id_aplicacion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -45,17 +49,13 @@ CREATE TABLE aplicaciones (
 	CONSTRAINT fk_aplicaciones_industrias FOREIGN KEY (id_industria) REFERENCES industrias(id_industria) ON DELETE RESTRICT
 ) ENGINE = InnoDB;
 
--- =================== --
--- TABLAS DEPENDIENTES --
--- =================== --
-
 -- (5) Creación Estructura Tabla detalles_elementos [(Relación elementos_quimicos(1) : detalles_elementos(1)].
 CREATE TABLE detalles_elementos (
     id_detalle INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     id_elemento INT UNIQUE NOT NULL, 
-    grupo_elemento INT NULL CHECK (grupo_elemento IS NULL OR (grupo_elemento >= 1 AND grupo_elemento <= 18)),
-    periodo_elemento INT NULL CHECK (periodo_elemento IS NULL OR (periodo_elemento >= 1 AND periodo_elemento <= 7)),
-    categoria_elemento VARCHAR(50) NULL,
+    grupo_elemento INT NOT NULL CHECK (grupo_elemento >= 1 AND grupo_elemento <= 18),
+    periodo_elemento INT NOT NULL CHECK (periodo_elemento >= 1 AND periodo_elemento <= 7),
+    categoria_elemento VARCHAR(50) NOT NULL,
     electronegatividad DECIMAL(3, 2) NULL,
     afinidad_electronica DECIMAL(6, 2) NULL,
     energia_de_ionizacion DECIMAL(6, 2) NULL,
